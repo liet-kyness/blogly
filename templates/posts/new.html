@@ -7,6 +7,7 @@
     <title>Blogly</title>
 </head>
 <body>
+    <h1>{{user.full_name}}</h1>
     <h1>Create Post</h1>
     <form method="POST">
         <div>
@@ -17,6 +18,12 @@
             <div>
                 <label for="content">Content</label>
                 <textarea type="text" id="content" name="content" placeholder="Post Here..."></textarea>
+            </div>
+            <div>
+                {% for tag in tags %}
+                <input type="checkbox" value="{{tag.id}}" id="tag_{{tag.id}}" name="tags">
+                <label for="tag_{{tag.id}}">{{tag.tag_name}}</label>
+                {% endfor %}
             </div>
         </div>
         <div>

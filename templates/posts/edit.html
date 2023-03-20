@@ -20,7 +20,18 @@
                 <label for="content">Content</label>
                 <div>
                     <textarea id="content" name="content">{{post.content}}</textarea>
+                </div>                    
+            </div>
+
+            <div>
+                {% for tag in tags %}
+                <div>
+                    <input type="checkbox" value="{{tag.id}}" id="tag_{{tag.id}}" {% if tag in post.tags %}checked{% endif %} name="tags">
+                    <label for="tag_{{tag.id}}">
+                        {{tag.tag_name}}
+                    </label>
                 </div>
+                {% endfor %}
             </div>
         </div>
         <div>

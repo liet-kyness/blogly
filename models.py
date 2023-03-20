@@ -13,7 +13,7 @@ class User(db.Model):
     last_name = db.Column(db.Text, nullable=False)
     image_url = db.Column(db.Text, nullable=False, default=DEFAULT_IMG_URL)
 
-    posts = db.relationship('Post', backref='user')
+    posts = db.relationship('Post', backref='user', cascade='all, delete-orphan')
 
     @property
     def full_name(self):
@@ -29,6 +29,26 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     
+class Tag(db.Model):
+    """Tags"""
+    __tablename__ = "tags"
+
+    id = db.Column(db.Integer, primary_key=True)
+    tag_name = db.Column(db.Text, nullable=False, unique=True)
+
+    posts = db.relationship("Post", secondary='posts_tags', backref='tags')
+
+class PostTag(db.Model):
+    """reference tags ON posts"""
+    __tablename__ = "posts_tags"
+
+    tags_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
+    posts_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
+
+
+
+
+
 def connect_db(app):
     db.app = app
     db.init_app(app)

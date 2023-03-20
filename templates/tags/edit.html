@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogly</title>
+</head>
+<body>
+    <h1>Edit</h1>
+    <form method="POST" action="/tags/{{tag.id}}/edit">
+        <div>
+            <label for="tag_name">Name</label>
+            <div>
+                <input type="text" id="tag_name" name="tag_name" placeholder="New Name" value="{{tag.tag_name}}">
+            </div>
+        </div>
+        <div>
+            {% for post in posts %}
+            <div>
+                <input type="checkbox" value="{{post.id}}" id="post_{{post.id}}" name="posts" {% if post in tag.posts %}checked{% endif %}>
+                <label for="post_{{post.id}}">{{post.title}}</label>
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            <a href="/tags">Back</a>
+            <button type="submit">Update</button>
+        </div>
+    </form>
+</body>
+</html>

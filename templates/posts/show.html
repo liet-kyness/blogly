@@ -10,10 +10,19 @@
     <h1>{{post.title}}</h1>
     <p>{{post.content}}</p>
     <p><small><i>{{post.user.full_name}} | {{post.created_at}}</i></small></p>
+    {% if post.tags %}
+    <p>
+        <b><small>Tags:</small></b>
+        {% for tag in post.tags %}
+        <a href="/tags/{{tag.id}}">{{tag.tag_name}}</a>
+        {% endfor %}
+    </p>
+    {% endif %}
     <form>
         <button formmethod="GET" formaction="/">Home</button>
         <button formmethod="GET" formaction="/posts/{{post.id}}/edit">Edit</button>
         <button formmethod="POST" formaction="/posts/{{post.id}}/delete">Delete</button>
+        <button formmethod="GET" formaction="/tags/new">Add Tag</button>
     </form>
 </body>
 </html>
